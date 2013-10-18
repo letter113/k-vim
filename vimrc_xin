@@ -1,8 +1,7 @@
 "显示行号：
 
 " automatically reload vimrc when it's saved$
-au BufWritePost .vimrc so ~/.vimrc$
-
+autocmd BufWritePost .vimrc source %
 set number
 "set ttyscroll=0 # turn off scrolling to fix gvim bug
 set colorcolumn=100
@@ -133,6 +132,7 @@ let g:multi_cursor_quit_key='<Esc>'
 "目录导航
 Bundle 'scrooloose/nerdtree'
 map <leader>n :NERDTreeToggle<CR>
+map <c-n> :NERDTree
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 let g:netrw_home='~/bak'
@@ -193,6 +193,7 @@ let Tlist_WinWidth = 25
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
+map <c-p> :CtrlP
 map <leader>f :CtrlPMRU<CR>
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = {
@@ -251,7 +252,6 @@ let g:solarized_visibility="normal"
 "主题 molokai
 Bundle 'tomasr/molokai'
 "let g:molokai_original = 1
-
 
 "################# 语法检查 ###############
 
