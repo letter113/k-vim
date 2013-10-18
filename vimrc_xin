@@ -342,8 +342,18 @@ highlight SpellLocal term=underline cterm=underline
 "au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
 
+" Set extra options when running in GUI mode
 
 if has("gui_running")
+    set guioptions-=T
+    set guioptions+=e
+    set guioptions-=r
+    set guioptions-=L
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+    set t_Co=256
   if has("gui_gtk2")
     set guifont=Courier\ New\ 11
   elseif has("gui_photon")
