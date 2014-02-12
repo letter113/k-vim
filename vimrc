@@ -1,5 +1,3 @@
-"显示行号：
-
 " automatically reload vimrc when it's saved$
 autocmd BufWritePost .vimrc source %
 set autochdir
@@ -20,20 +18,19 @@ set smartindent
 set autoindent    " always set autoindenting on
 " never add copyindent, case error   " copy the previous indentation on autoindenting
 
-set tabstop=4                " 设置Tab键的宽度        [等同的空格个数]
+set tabstop=4                " tab = 4 whitespaces
 set shiftwidth=4  " number of spaces to use for autoindenting
-set softtabstop=4             " 按退格键时可以一次删掉 4 个空格
-set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
+set softtabstop=4             " backspace now deletes 4 whitespaces
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
+set expandtab                " convert tab to whitespace, use Ctrl+V + Tab for typing Tab
 
-set expandtab                " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
-
-"显示当前的行号列号：
+"show col number
 set ruler
 
-" Python 文件的一般设置，比如不要 tab 等
+" Python
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 
-"删除多余空格
+
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -53,7 +50,7 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 "==========================================
-" bundle 插件管理和配置项
+" bundle
 "==========================================
 "========================== config for plugins begin ======================================
 
@@ -65,9 +62,8 @@ filetype off " required! turn off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-"################### 插件管理 ###################"
 
-"使用Vundle来管理Vundle
+"Use Vundle to manager Vundle
 Bundle 'gmarik/vundle'
 " vim plugin bundle control, command model
 " :BundleInstall     install
@@ -75,23 +71,20 @@ Bundle 'gmarik/vundle'
 " :BundleClean       remove plugin not in list
 
 
-"################### 补全及快速编辑 ###################"
+"################### Auto complete ###################"
 
-"迄今位置用到的最好的自动VIM自动补全插件
+"Best auto complete plugin ever!
 Bundle 'Valloric/YouCompleteMe'
-"youcompleteme  默认tab  s-tab 和自动补全冲突
-"let g:ycm_key_list_select_completion=['<c-n>']
+"youcompleteme: change completion select
 let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion=['<c-p>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 
 
-"快速插入代码片段
+"Auto insert snips
 "Bundle 'vim-scripts/UltiSnips'
 Bundle 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"定义存放代码片段的文件夹 .vim/snippets下，使用自定义和默认的，将会的到全局，有冲突的会提示
 let g:UltiSnipsSnippetDirectories=["snippets", "bundle/UltiSnips/UltiSnips"]
 
 "快速 加减注释
@@ -104,7 +97,7 @@ Bundle 'tpope/vim-repeat'
 
 "自动补全单引号，双引号等
 Bundle 'Raimondi/delimitMate'
-" for python docstring ",优化输入
+" for python docstring
 au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 "for code alignment
@@ -243,30 +236,28 @@ let g:indentLine_char = '¦'
 "for show no user whitespaces
 Bundle 'bronson/vim-trailing-whitespace'
 
-"主题 solarized
+"Color Scheme solarized
 Bundle 'altercation/vim-colors-solarized'
 "let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 
-"主题 molokai
+"Color scheme molokai
 Bundle 'tomasr/molokai'
 "let g:molokai_original = 1
 
-"################# 语法检查 ###############
-
-" 编辑时自动语法检查标红, vim-flake8目前还不支持,所以多装一个
-" 使用pyflakes,速度比pylint快
+"################# Syntax check ###############
 Bundle 'scrooloose/syntastic'
 let g:syntastic_error_symbol='>>'
 let g:syntastic_warning_symbol='>'
 let g:syntastic_check_on_open=1
 "let g:syntastic_enable_highlighting = 0
 let g:syntastic_python_checkers=['pylint', 'pep8']
+let syntastic_python_pylint_args='--max-line-length 100'
+let syntastic_python_pep8_args='--max-line-length 100'
 highlight SyntasticErrorSign guifg=white guibg=black
 
-"################# 具体语言语法高亮 ###############
 
 " for python.vim syntax highlight
 Bundle 'hdima/python-syntax'
@@ -296,16 +287,16 @@ Bundle 'Glench/Vim-Jinja2-Syntax'
 Bundle 'thiderman/nginx-vim-syntax'
 
 
-"################### 其他 ###################"
+"################### 
 filetype plugin indent on
 "==========================================
-" 主题,及一些展示上颜色的修改
+" Themes and colors 
 "==========================================
-"开启语法高亮
+"Highlight syntax
 syntax enable
 syntax on
 
-" 修改主题和颜色展示
+
 colorscheme solarized 
 set background=dark
 set t_Co=256
@@ -313,12 +304,7 @@ set t_Co=256
 "colorscheme molokai
 "colorscheme desert
 
-"设置标记一列的背景颜色和数字一行颜色一致
-"hi! link SignColumn   LineNr
-"hi! link ShowMarksHLl DiffAdd
-"hi! link ShowMarksHLu DiffChange
-
-"" for error highlight，防止错误整行标红导致看不清
+"" for error highlight
 highlight clear SpellBad
 highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
 highlight clear SpellCap
