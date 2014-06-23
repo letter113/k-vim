@@ -59,7 +59,7 @@ set whichwrap+=<,>,h,l
 "python dependent:  pep8, pyflake
 
 filetype off " required! turn off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 
@@ -82,10 +82,10 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 
 "Auto insert snips
 "Bundle 'vim-scripts/UltiSnips'
-Bundle 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsSnippetDirectories=["snippets", "bundle/UltiSnips/UltiSnips"]
+"Bundle 'SirVer/ultisnips'
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsSnippetDirectories=["snippets", "bundle/UltiSnips/UltiSnips"]
 
 "快速 加减注释
 Bundle 'scrooloose/nerdcommenter'
@@ -253,8 +253,9 @@ let g:syntastic_error_symbol='>>'
 let g:syntastic_warning_symbol='>'
 let g:syntastic_check_on_open=1
 "let g:syntastic_enable_highlighting = 0
-let g:syntastic_python_checkers=['pylint', 'pep8']
+let g:syntastic_python_checkers=['pyflakes', 'pep8']
 let syntastic_python_pylint_args='--max-line-length 100'
+let syntastic_python_pyflakes_args='--max-line-length 100'
 let syntastic_python_pep8_args='--max-line-length 100'
 highlight SyntasticErrorSign guifg=white guibg=black
 
@@ -341,6 +342,6 @@ if has("gui_running")
   elseif has("x11")
     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
   else
-    set guifont=Courier_New:h11:cDEFAULT
+    set guifont=Monaco:h15
   endif
 endif
