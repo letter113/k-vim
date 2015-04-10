@@ -61,59 +61,87 @@ set whichwrap+=<,>,h,l
 filetype off " required! turn off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-"Use Vundle to manager Vundle
-Bundle 'gmarik/vundle'
-" vim plugin bundle control, command model
-" :BundleInstall     install
-" :BundleInstall!    update
-" :BundleClean       remove plugin not in list
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
 
 
 "################### Auto complete ###################"
 
 "Best auto complete plugin ever!
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 "youcompleteme: change completion select
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 
 
 "Auto insert snips
-"Bundle 'vim-scripts/UltiSnips'
-"Bundle 'SirVer/ultisnips'
+"Plugin 'vim-scripts/UltiSnips'
+"Plugin 'SirVer/ultisnips'
 "let g:UltiSnipsExpandTrigger = "<tab>"
 "let g:UltiSnipsJumpForwardTrigger = "<tab>"
 "let g:UltiSnipsSnippetDirectories=["snippets", "bundle/UltiSnips/UltiSnips"]
 
 "快速 加减注释
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 
 " 快速加入修改环绕字符
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 "for repeat -> enhance surround.vim, . to repeat command
-Bundle 'tpope/vim-repeat'
+Plugin 'tpope/vim-repeat'
 
 "自动补全单引号，双引号等
-Bundle 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 " for python docstring
 au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 "for code alignment
-Bundle 'godlygeek/tabular'
+Plugin 'godlygeek/tabular'
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
 "for visual selection
-Bundle 'terryma/vim-expand-region'
+Plugin 'terryma/vim-expand-region'
 map = <Plug>(expand_region_expand)
 map - <Plug>(expand_region_shrink)
 
 "for mutil cursor
-Bundle 'terryma/vim-multiple-cursors'
+Plugin 'terryma/vim-multiple-cursors'
 " Default mapping
 let g:multi_cursor_next_key='<C-m>'
 let g:multi_cursor_prev_key='<C-p>'
@@ -124,7 +152,7 @@ let g:multi_cursor_quit_key='<Esc>'
 "################### 导航 ###################"
 
 "目录导航
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 map <leader>n :NERDTreeToggle<CR>
 map <c-n> :NERDTree
 let NERDTreeHighlightCursorline=1
@@ -132,18 +160,7 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^
 let g:netrw_home='~/bak'
 "close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
-
-"for minibufferexpl
-Bundle 'fholgado/minibufexpl.vim'
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-"解决FileExplorer窗口变小问题
-let g:miniBufExplForceSyntaxEnable = 1
-let g:miniBufExplorerMoreThanOne=2
-let g:miniBufExplCycleArround=1
-
+Plugin 'jlanzarotta/bufexplorer'
 " 默认方向键左右可以切换buffer
 nnoremap <TAB> :MBEbn<CR>
 noremap <leader>bn :MBEbn<CR>
@@ -151,12 +168,12 @@ noremap <leader>bp :MBEbp<CR>
 noremap <leader>bd :MBEbd<CR>
 
 "标签导航
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 "标签导航 要装ctags
-Bundle 'vim-scripts/taglist.vim'
+Plugin 'vim-scripts/taglist.vim'
 set tags=tags;/
 let Tlist_Ctags_Cmd="/usr/bin/ctags"
 nnoremap <silent> <F8> :TlistToggle<CR>
@@ -184,7 +201,7 @@ let Tlist_Use_Right_Window = 0
 let Tlist_WinWidth = 25
 
 "for file search ctrlp, 文件搜索
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 map <c-p> :CtrlP
@@ -205,7 +222,7 @@ let g:ctrlp_follow_symlinks=1
 "################### 显示增强 ###################"
 
 "括号显示增强
-Bundle 'kien/rainbow_parentheses.vim'
+Plugin 'kien/rainbow_parentheses.vim'
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -228,27 +245,27 @@ let g:rbpt_max = 40
 let g:rbpt_loadcmd_toggle = 0
 
 "代码排版缩进标识
-Bundle 'Yggdroot/indentLine'
+Plugin 'Yggdroot/indentLine'
 let g:indentLine_noConcealCursor = 1
 let g:indentLine_color_term = 0
 let g:indentLine_char = '¦'
 
 "for show no user whitespaces
-Bundle 'bronson/vim-trailing-whitespace'
+Plugin 'bronson/vim-trailing-whitespace'
 
 "Color Scheme solarized
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 "let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 
 "Color scheme molokai
-Bundle 'tomasr/molokai'
+Plugin 'tomasr/molokai'
 "let g:molokai_original = 1
 
 "################# Syntax check ###############
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_error_symbol='>>'
 let g:syntastic_warning_symbol='>'
 let g:syntastic_check_on_open=1
@@ -261,33 +278,33 @@ highlight SyntasticErrorSign guifg=white guibg=black
 
 
 " for python.vim syntax highlight
-Bundle 'hdima/python-syntax'
+Plugin 'hdima/python-syntax'
 let python_highlight_all = 1
 
 
 " for golang
-Bundle 'jnwhiteh/vim-golang'
+Plugin 'jnwhiteh/vim-golang'
 
 " for markdown
-Bundle 'plasticboy/vim-markdown'
+Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled=1
 
 " for javascript
-Bundle "pangloss/vim-javascript"
+Plugin "pangloss/vim-javascript"
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 "for jquery
-Bundle 'nono/jquery.vim'
+Plugin 'nono/jquery.vim'
 
 "for jinja2 highlight
-Bundle 'Glench/Vim-Jinja2-Syntax'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 
 "for nginx conf file highlight.   need to confirm it works
-Bundle 'thiderman/nginx-vim-syntax'
+"Plugin 'thiderman/nginx-vim-syntax'
 
-
+Plugin 'mileszs/ack.vim'
 "################### 
 filetype plugin indent on
 "==========================================
@@ -298,12 +315,12 @@ syntax enable
 syntax on
 
 
-colorscheme solarized 
-set background=dark
-set t_Co=256
+"colorscheme solarized 
+"set background=dark
+"set t_Co=256
 
 "colorscheme molokai
-"colorscheme desert
+colorscheme jellybeans
 
 "" for error highlight
 highlight clear SpellBad
