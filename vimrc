@@ -1,6 +1,5 @@
 " automatically reload vimrc when it's saved$
 autocmd BufWritePost .vimrc source %
-set autochdir
 set number
 "set ttyscroll=0 # turn off scrolling to fix gvim bug
 set colorcolumn=100
@@ -69,22 +68,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-Plugin 'user/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -282,44 +265,30 @@ Plugin 'hdima/python-syntax'
 let python_highlight_all = 1
 
 
-" for golang
-Plugin 'jnwhiteh/vim-golang'
-
-" for markdown
-Plugin 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled=1
-
-" for javascript
-Plugin "pangloss/vim-javascript"
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
-
-"for jquery
-Plugin 'nono/jquery.vim'
-
-"for jinja2 highlight
-Plugin 'Glench/Vim-Jinja2-Syntax'
-
-"for nginx conf file highlight.   need to confirm it works
-"Plugin 'thiderman/nginx-vim-syntax'
-
 Plugin 'mileszs/ack.vim'
 "################### 
 filetype plugin indent on
+
+
+"" JS and HTML
+Plugin 'wookiehangover/jshint.vim'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
+autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+Plugin 'othree/javascript-libraries-syntax.vim'
+let g:used_javascript_libs = 'angularjs,angularui'
+
+Plugin 'Valloric/MatchTagAlways'
+
 "==========================================
 " Themes and colors 
 "==========================================
 "Highlight syntax
 syntax enable
 syntax on
-
-
-"colorscheme solarized 
-"set background=dark
-"set t_Co=256
-
-"colorscheme molokai
 colorscheme jellybeans
 
 "" for error highlight
@@ -332,13 +301,6 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
-" settings for kien/rainbow_parentheses.vim
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-
-" Set extra options when running in GUI mode
 
 if has("gui_running")
     set guioptions-=T
